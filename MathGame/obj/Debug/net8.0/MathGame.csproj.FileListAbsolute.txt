@@ -1,0 +1,15 @@
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\bin\Debug\net8.0\MathGame.exe
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\bin\Debug\net8.0\MathGame.deps.json
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\bin\Debug\net8.0\MathGame.runtimeconfig.json
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\bin\Debug\net8.0\MathGame.dll
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\bin\Debug\net8.0\MathGame.pdb
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\obj\Debug\net8.0\MathGame.GeneratedMSBuildEditorConfig.editorconfig
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\obj\Debug\net8.0\MathGame.AssemblyInfoInputs.cache
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\obj\Debug\net8.0\MathGame.AssemblyInfo.cs
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\obj\Debug\net8.0\MathGame.csproj.CoreCompileInputs.cache
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\obj\Debug\net8.0\MathGame.sourcelink.json
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\obj\Debug\net8.0\MathGame.dll
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\obj\Debug\net8.0\refint\MathGame.dll
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\obj\Debug\net8.0\MathGame.pdb
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\obj\Debug\net8.0\MathGame.genruntimeconfig.cache
+C:\Scripts\GitHub\alexgit55\cSharpProjects\MathGame\obj\Debug\net8.0\ref\MathGame.dll

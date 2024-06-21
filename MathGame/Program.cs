@@ -35,7 +35,7 @@ while (keepPlaying)
             break;
         case 5:
             Console.WriteLine("You selected Random");
-            Console.WriteLine("This functionality is still under development!");
+            GameRound(5);
             Console.ReadKey();
             break;
         case 6:
@@ -78,15 +78,28 @@ char GameMenu()
 
 void GameRound(int selection, int difficulty=1, int totalQuestions=10 )
 // Play a round of the game with the selected math operation
+// If the user selects random, a random operation will be chosen for each question
 {
     int lowerRange = 1;
     int upperRange = 21;
     int playerScore = 0;
+    int operation = 0;
     for (int i = 1; i <= totalQuestions; i++)
     {
+        if (selection == 5)
+        {
+            Random rand = new Random();
+            operation = rand.Next(1, 5);
+        }
+        else
+        {
+            operation = selection;
+        }
+
         Console.WriteLine($"Question {i} of {totalQuestions}");
-        playerScore += MathQuestion(lowerRange, upperRange, selection);
+        playerScore += MathQuestion(lowerRange, upperRange, operation);
     }
+
     Console.WriteLine($"Your final score was {playerScore} out of {totalQuestions} correct.");
     SaveGameScore(selection, playerScore);
     Console.WriteLine("Press any key to continue...");
@@ -155,9 +168,6 @@ int MathQuestion(int lowerRange, int upperRange, int selection)
             break;
         case 4:
             correct = Division(lowerRange, upperRange);
-            break;
-        case 5:
-            Console.WriteLine("You selected Random");
             break;
     }
 

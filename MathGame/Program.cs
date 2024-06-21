@@ -1,14 +1,11 @@
 ﻿/*
- * This is a simple math game that asks the user to solve a simple addition problem.
+ * This is a simple math game that asks the user to solve a series of math problems.
+ * The user can select the type of math operation they want to focus on (addition, subtraction, multiplication, division, random).
  * The user is asked if they want to play again after each round.
  */
 
-
+//Set initial variables, and create a loop to keep the game running until the user decides to exit.
 bool keepPlaying = true;
-int PlayerScore = 0;
-int lowerRange = 1;
-int upperRange = 11;
-int TotalQuestions = 10;
 
 while (keepPlaying)
 {   
@@ -43,6 +40,7 @@ while (keepPlaying)
             break;
         case 7:
             Console.WriteLine("Thanks for Playing! Goodbye!");
+            Console.WriteLine("Press any key to exit");
             keepPlaying = false;
             break;
     }
@@ -52,6 +50,7 @@ Console.ReadKey();
 
 char GameMenu()
     // Display the game menu and return the user's selection
+    // verify that the user's selection is valid
 {
     char selection='0';
     char[] validSelections = {'1','2','3','4','5','6','7'};
@@ -74,6 +73,7 @@ char GameMenu()
 }
 
 void GameRound(int selection, int difficulty=1, int totalQuestions=10 )
+// Play a round of the game with the selected math operation
 {
     int lowerRange = 1;
     int upperRange = 21;
@@ -90,6 +90,7 @@ void GameRound(int selection, int difficulty=1, int totalQuestions=10 )
 }
 
 int MathQuestion(int lowerRange, int upperRange, int selection)
+//Used to generate a math question based on the user's selection and return whether the user's answer was correct
 {
     bool correct = false;
     switch (selection)
@@ -118,6 +119,7 @@ int MathQuestion(int lowerRange, int upperRange, int selection)
 }
 
 bool Addition(int lowerRange, int upperRange)
+// Generate the addition problem and check if the user's answer is correct
 {
     int userAnswer;
     // Generate two random numbers between lower range and upper range
@@ -149,8 +151,9 @@ bool Addition(int lowerRange, int upperRange)
 }
 
 bool Subtraction(int lowerRange, int upperRange)
+// Generate the subtraction problem and check if the user's answer is correct
 {
-    // Generate two random numbers between 1 and 10
+    // Generate two random numbers between lowerRange and upperRange
     int num1;
     int num2;
     int userAnswer;
@@ -183,6 +186,7 @@ bool Subtraction(int lowerRange, int upperRange)
 }
 
 bool Multiplication(int lowerRange, int upperRange)
+// Generate the multiplication problem and check if the user's answer is correct
 {
     int userAnswer;
     // Generate two random numbers between lowerRange and upperRange
@@ -214,6 +218,7 @@ bool Multiplication(int lowerRange, int upperRange)
 }
 
 bool Division(int lowerRange, int upperRange)
+// Generate the division problem and check if the user's answer is correct
 {
     int userAnswer;
     int num1 = 0;

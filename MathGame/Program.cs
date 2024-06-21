@@ -10,6 +10,9 @@ var history = new List<string>();
 string[] operations = { "Addition", "Subtraction", "Multiplication", "Division", "Random" };
 int totalQuestions = 10;
 int difficulty = 1;
+int lowerRange = 1;
+int upperRange = 10;
+
 
 while (keepPlaying)
 {   
@@ -32,7 +35,7 @@ while (keepPlaying)
         default:
             Console.WriteLine($"You've selected {operations[menuSelection-1]}");
             CustomGameSettings();
-            GameRound(menuSelection, difficulty, totalQuestions);
+            GameRound(menuSelection);
             break;
     }
 }
@@ -64,6 +67,7 @@ char GameMenu()
 }
 
 void CustomGameSettings()
+// Allow the user to set custom game settings for the number of questions and difficulty level
 {
     Console.Clear();
     Console.WriteLine("Custom Game Settings");
@@ -79,18 +83,6 @@ void CustomGameSettings()
     {
         Console.WriteLine("Please enter a valid number between 1 and 3.");
     }
-}
-
-void GameRound(int selection, int difficulty=1, int totalQuestions=10 )
-// Play a round of the game with the selected math operation
-// If the user selects random, a random operation will be chosen for each question
-{
-    int lowerRange = 1;
-    int upperRange = 10;
-    int playerScore = 0;
-    int operation = 0;
-    DateTime startTime = DateTime.Now;
-
     switch (difficulty)
     {
         case 1:
@@ -106,7 +98,16 @@ void GameRound(int selection, int difficulty=1, int totalQuestions=10 )
             upperRange = 50;
             break;
     }
-    
+}
+
+void GameRound(int selection)
+// Play a round of the game with the selected math operation
+// If the user selects random, a random operation will be chosen for each question
+{
+    int playerScore = 0;
+    int operation = 0;
+    DateTime startTime = DateTime.Now;
+
     for (int i = 1; i <= totalQuestions; i++)
     {
         if (selection == 5)

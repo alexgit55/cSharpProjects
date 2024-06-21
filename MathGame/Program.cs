@@ -292,8 +292,8 @@ bool Division(int lowerRange, int upperRange)
     do
     {
         Random rand = new Random();
-        num1 = rand.Next(1, 11);
-        num2 = rand.Next(1, 11);
+        num1 = rand.Next(lowerRange, upperRange);
+        num2 = rand.Next(lowerRange, upperRange);
     } while (num1%num2 != 0);
 
     // Ask the user to solve the addition problem

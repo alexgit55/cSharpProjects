@@ -35,10 +35,12 @@ while (keepPlaying)
             break;
         case 5:
             Console.WriteLine("You selected Random");
+            Console.WriteLine("This functionality is still under development!");
+            Console.ReadKey();
             break;
         case 6:
             Console.WriteLine("You selected History");
-            GameHistory();
+            ViewGameHistory();
             break;
         case 7:
             Console.WriteLine("Thanks for Playing! Goodbye!");
@@ -86,13 +88,13 @@ void GameRound(int selection, int difficulty=1, int totalQuestions=10 )
         playerScore += MathQuestion(lowerRange, upperRange, selection);
     }
     Console.WriteLine($"Your final score was {playerScore} out of {totalQuestions} correct.");
-    SaveHistory(selection, playerScore);
+    SaveGameScore(selection, playerScore);
     Console.WriteLine("Press any key to continue...");
     Console.ReadKey();
 
 }
 
-void SaveHistory(int selection, int playerScore)
+void SaveGameScore(int selection, int playerScore)
 // Save the player's score for the round in the game history
 {
     string historyEntry="";
@@ -118,7 +120,7 @@ void SaveHistory(int selection, int playerScore)
     history.Add(historyEntry);
 }
 
-void GameHistory()
+void ViewGameHistory()
 // Display scores from each round played
 {
     if (history.Count == 0)

@@ -89,6 +89,7 @@ void GameRound(int selection, int difficulty=1, int totalQuestions=10 )
     int upperRange = 10;
     int playerScore = 0;
     int operation = 0;
+    DateTime startTime = DateTime.Now;
 
     switch (difficulty)
     {
@@ -123,18 +124,21 @@ void GameRound(int selection, int difficulty=1, int totalQuestions=10 )
     }
 
     Console.WriteLine($"Your final score was {playerScore} out of {totalQuestions} correct.");
-    SaveGameScore(selection, playerScore, difficulty);
+    DateTime endTime = DateTime.Now;
+    TimeSpan timeElapsed = endTime - startTime;
+    Console.WriteLine($"Time Elapsed: {timeElapsed.Minutes} minutes {timeElapsed.Seconds} seconds");
+    SaveGameScore(selection, playerScore, difficulty, timeElapsed);
     Console.WriteLine("Press any key to continue...");
     Console.ReadKey();
 
 }
 
-void SaveGameScore(int selection, int playerScore, int difficulty)
+void SaveGameScore(int selection, int playerScore, int difficulty, TimeSpan timeElapsed)
 // Save the player's score for the round in the game history
 {
     string historyEntry="";
 
-    historyEntry = $"Round: {operations[selection-1]}, difficulty-{difficulty}, {playerScore} points";
+    historyEntry = $"{operations[selection-1]}, difficulty-{difficulty}, {playerScore} points, Time Elapsed: {timeElapsed.Minutes} minutes {timeElapsed.Seconds} seconds";
     history.Add(historyEntry);
 }
 
@@ -147,9 +151,9 @@ void ViewGameHistory()
     {
         Console.WriteLine("\nGame History");
         Console.WriteLine("-------------");
-        foreach (string entry in history)
+        for (int i = 0; i < history.Count; i++)
         {
-            Console.WriteLine(entry);
+            Console.WriteLine($"Round {i+1}: {history[i]}");
         }
     }
     Console.WriteLine("Press any key to continue...");

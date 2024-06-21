@@ -7,6 +7,7 @@
 //Set initial variables, and create a loop to keep the game running until the user decides to exit.
 bool keepPlaying = true;
 var history = new List<string>();
+string[] operations = { "Addition", "Subtraction", "Multiplication", "Division", "Random" };
 
 while (keepPlaying)
 {   
@@ -17,27 +18,6 @@ while (keepPlaying)
 
     switch (menuSelection)
     {
-        case 1:
-            Console.WriteLine("You selected Addition");
-            GameRound(1);
-            break;
-        case 2:
-            Console.WriteLine("You selected Subtraction");
-            GameRound(2);
-            break;
-        case 3:
-            Console.WriteLine("You selected Multiplication");
-            GameRound(3);
-            break;
-        case 4:
-            Console.WriteLine("You selected Division");
-            GameRound(4);
-            break;
-        case 5:
-            Console.WriteLine("You selected Random");
-            GameRound(5);
-            Console.ReadKey();
-            break;
         case 6:
             Console.WriteLine("You selected History");
             ViewGameHistory();
@@ -46,6 +26,10 @@ while (keepPlaying)
             Console.WriteLine("Thanks for Playing! Goodbye!");
             Console.WriteLine("Press any key to exit");
             keepPlaying = false;
+            break;
+        default:
+            Console.WriteLine($"You've selected {operations[menuSelection-1]}");
+            GameRound(menuSelection);
             break;
     }
 }
@@ -75,6 +59,8 @@ char GameMenu()
     }
     return selection;
 }
+
+
 
 void GameRound(int selection, int difficulty=1, int totalQuestions=10 )
 // Play a round of the game with the selected math operation

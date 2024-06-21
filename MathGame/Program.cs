@@ -6,6 +6,7 @@
 
 //Set initial variables, and create a loop to keep the game running until the user decides to exit.
 bool keepPlaying = true;
+var history = new List<string>();
 
 while (keepPlaying)
 {   
@@ -37,6 +38,7 @@ while (keepPlaying)
             break;
         case 6:
             Console.WriteLine("You selected History");
+            GameHistory();
             break;
         case 7:
             Console.WriteLine("Thanks for Playing! Goodbye!");
@@ -77,16 +79,61 @@ void GameRound(int selection, int difficulty=1, int totalQuestions=10 )
 {
     int lowerRange = 1;
     int upperRange = 21;
-    int PlayerScore = 0;
+    int playerScore = 0;
     for (int i = 1; i <= totalQuestions; i++)
     {
         Console.WriteLine($"Question {i} of {totalQuestions}");
-        PlayerScore += MathQuestion(lowerRange, upperRange, selection);
+        playerScore += MathQuestion(lowerRange, upperRange, selection);
     }
-    Console.WriteLine($"Your final score was {PlayerScore} out of {totalQuestions} correct.");
+    Console.WriteLine($"Your final score was {playerScore} out of {totalQuestions} correct.");
+    SaveHistory(selection, playerScore);
     Console.WriteLine("Press any key to continue...");
     Console.ReadKey();
 
+}
+
+void SaveHistory(int selection, int playerScore)
+// Save the player's score for the round in the game history
+{
+    string historyEntry="";
+    switch (selection)
+    {
+        case 1:
+            historyEntry = $"Addition Round: {playerScore} points";
+            break;
+        case 2:
+            historyEntry = $"Subtraction Round: {playerScore} points";
+            break;
+        case 3:
+            historyEntry = $"Multiplication Round: {playerScore} points";
+            break;
+        case 4:
+            historyEntry = $"Division Round: {playerScore} points";
+            break;
+        case 5:
+            historyEntry = $"Random Operations Round: {playerScore} points";
+            break;
+    }
+
+    history.Add(historyEntry);
+}
+
+void GameHistory()
+// Display scores from each round played
+{
+    if (history.Count == 0)
+        Console.WriteLine("\nNo history available. Please play a round of the game!");
+    else
+    {
+        Console.WriteLine("\nGame History");
+        Console.WriteLine("-------------");
+        foreach (string entry in history)
+        {
+            Console.WriteLine(entry);
+        }
+    }
+    Console.WriteLine("Press any key to continue...");
+    Console.ReadKey();
 }
 
 int MathQuestion(int lowerRange, int upperRange, int selection)

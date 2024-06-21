@@ -8,6 +8,8 @@
 bool keepPlaying = true;
 var history = new List<string>();
 string[] operations = { "Addition", "Subtraction", "Multiplication", "Division", "Random" };
+int totalQuestions = 10;
+int difficulty = 1;
 
 while (keepPlaying)
 {   
@@ -29,7 +31,8 @@ while (keepPlaying)
             break;
         default:
             Console.WriteLine($"You've selected {operations[menuSelection-1]}");
-            GameRound(menuSelection);
+            CustomGameSettings();
+            GameRound(menuSelection, difficulty, totalQuestions);
             break;
     }
 }
@@ -60,16 +63,49 @@ char GameMenu()
     return selection;
 }
 
+void CustomGameSettings()
+{
+    Console.Clear();
+    Console.WriteLine("Custom Game Settings");
+    Console.WriteLine("--------------------");
+    Console.WriteLine("Enter the number of questions you want to answer (1-20): ");
+    while (!int.TryParse(Console.ReadLine(), out totalQuestions) || totalQuestions < 1 || totalQuestions > 20)
+    {
+        Console.WriteLine("Please enter a valid number between 1 and 20.");
+    }
 
+    Console.WriteLine("Enter the difficulty level (1-3): ");
+    while (!int.TryParse(Console.ReadLine(), out difficulty) || difficulty < 1 || difficulty > 3)
+    {
+        Console.WriteLine("Please enter a valid number between 1 and 3.");
+    }
+}
 
 void GameRound(int selection, int difficulty=1, int totalQuestions=10 )
 // Play a round of the game with the selected math operation
 // If the user selects random, a random operation will be chosen for each question
 {
     int lowerRange = 1;
-    int upperRange = 21;
+    int upperRange = 10;
     int playerScore = 0;
     int operation = 0;
+
+    switch (difficulty)
+    {
+        case 1:
+            lowerRange = 1;
+            upperRange = 10;
+            break;
+        case 2:
+            lowerRange = 1;
+            upperRange = 30;
+            break;
+        case 3:
+            lowerRange = 1;
+            upperRange = 50;
+            break;
+    }
+    
     for (int i = 1; i <= totalQuestions; i++)
     {
         if (selection == 5)
@@ -87,35 +123,18 @@ void GameRound(int selection, int difficulty=1, int totalQuestions=10 )
     }
 
     Console.WriteLine($"Your final score was {playerScore} out of {totalQuestions} correct.");
-    SaveGameScore(selection, playerScore);
+    SaveGameScore(selection, playerScore, difficulty);
     Console.WriteLine("Press any key to continue...");
     Console.ReadKey();
 
 }
 
-void SaveGameScore(int selection, int playerScore)
+void SaveGameScore(int selection, int playerScore, int difficulty)
 // Save the player's score for the round in the game history
 {
     string historyEntry="";
-    switch (selection)
-    {
-        case 1:
-            historyEntry = $"Addition Round: {playerScore} points";
-            break;
-        case 2:
-            historyEntry = $"Subtraction Round: {playerScore} points";
-            break;
-        case 3:
-            historyEntry = $"Multiplication Round: {playerScore} points";
-            break;
-        case 4:
-            historyEntry = $"Division Round: {playerScore} points";
-            break;
-        case 5:
-            historyEntry = $"Random Operations Round: {playerScore} points";
-            break;
-    }
 
+    historyEntry = $"Round: {operations[selection-1]}, difficulty-{difficulty}, {playerScore} points";
     history.Add(historyEntry);
 }
 

@@ -1,0 +1,15 @@
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\bin\Debug\net8.0\codewars.exe
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\bin\Debug\net8.0\codewars.deps.json
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\bin\Debug\net8.0\codewars.runtimeconfig.json
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\bin\Debug\net8.0\codewars.dll
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\bin\Debug\net8.0\codewars.pdb
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\obj\Debug\net8.0\codewars.GeneratedMSBuildEditorConfig.editorconfig
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\obj\Debug\net8.0\codewars.AssemblyInfoInputs.cache
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\obj\Debug\net8.0\codewars.AssemblyInfo.cs
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\obj\Debug\net8.0\codewars.csproj.CoreCompileInputs.cache
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\obj\Debug\net8.0\codewars.sourcelink.json
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\obj\Debug\net8.0\codewars.dll
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\obj\Debug\net8.0\refint\codewars.dll
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\obj\Debug\net8.0\codewars.pdb
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\obj\Debug\net8.0\codewars.genruntimeconfig.cache
+C:\Scripts\GitHub\alexgit55\cSharpProjects\codewars\obj\Debug\net8.0\ref\codewars.dll

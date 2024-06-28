@@ -1,0 +1,15 @@
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\bin\Debug\net8.0\Calculator.exe
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\bin\Debug\net8.0\Calculator.deps.json
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\bin\Debug\net8.0\Calculator.runtimeconfig.json
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\bin\Debug\net8.0\Calculator.dll
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\bin\Debug\net8.0\Calculator.pdb
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\obj\Debug\net8.0\Calculator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\obj\Debug\net8.0\Calculator.AssemblyInfoInputs.cache
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\obj\Debug\net8.0\Calculator.AssemblyInfo.cs
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\obj\Debug\net8.0\Calculator.csproj.CoreCompileInputs.cache
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\obj\Debug\net8.0\Calculator.sourcelink.json
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\obj\Debug\net8.0\Calculator.dll
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\obj\Debug\net8.0\refint\Calculator.dll
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\obj\Debug\net8.0\Calculator.pdb
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\obj\Debug\net8.0\Calculator.genruntimeconfig.cache
+C:\Scripts\GitHub\alexgit55\cSharpProjects\Calculator\obj\Debug\net8.0\ref\Calculator.dll

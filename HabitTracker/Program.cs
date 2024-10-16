@@ -4,6 +4,7 @@ using System.Globalization;
 namespace HabitTracker
 {
     public class Habit
+    //Class to represent a habit record in the database
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
@@ -12,12 +13,13 @@ namespace HabitTracker
 
     internal class Program
     {
-        static string connectionString = @"Data Source=habit_tracker.db";
+        static string connectionString = @"Data Source=water_tracker.db";
+        static string databaseName = "water_tracker";
 
         static void Main(string[] args)
         {
 
-            RunCommandOnDatabase(@"CREATE TABLE IF NOT EXISTS habits (id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Quantity INTEGER)");
+            RunCommandOnDatabase($"CREATE TABLE IF NOT EXISTS {databaseName} (id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Quantity INTEGER)");
 
             GetUserInput();
         }
@@ -90,7 +92,7 @@ namespace HabitTracker
         {
             Console.Clear();
             Console.WriteLine("Viewing all records\n");
-            string commandText = $"SELECT * FROM habits";
+            string commandText = $"SELECT * FROM {databaseName}";
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
 
@@ -191,7 +193,7 @@ namespace HabitTracker
                 return;
             }
 
-            string commandText = $"INSERT INTO habits (Date, Quantity) VALUES ('{date}', {quantity})";
+            string commandText = $"INSERT INTO {databaseName} (Date, Quantity) VALUES ('{date}', {quantity})";
             RunCommandOnDatabase(commandText);
 
             Console.WriteLine("Record added successfully.\n\n");
@@ -204,7 +206,7 @@ namespace HabitTracker
 
             int id = GetNumberInput("\nPlease enter the ID of the record you want to delete (type 0 to return to main menu): ");
 
-            string commandText = $"DELETE FROM habits WHERE id = {id}";
+            string commandText = $"DELETE FROM {databaseName} WHERE id = {id}";
 
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
@@ -233,7 +235,7 @@ namespace HabitTracker
             connection.Open();
 
             var checkCommand = connection.CreateCommand();
-            checkCommand.CommandText = $"SELECT EXISTS(SELECT 1 FROM habits WHERE Id = {id})";
+            checkCommand.CommandText = $"SELECT EXISTS(SELECT 1 FROM {databaseName} WHERE Id = {id})";
             int checkQuery = Convert.ToInt32(checkCommand.ExecuteScalar());
 
             if (checkQuery == 0)
@@ -247,7 +249,7 @@ namespace HabitTracker
             int quantity = GetNumberInput("\n\nPlease insert number of glasses of water drank (no decimals allowed, type 0 to return to main menu): ");
 
             var tableCommand = connection.CreateCommand();
-            tableCommand.CommandText = $"UPDATE habits SET Date = '{date}', Quantity = {quantity} WHERE Id = {id}";
+            tableCommand.CommandText = $"UPDATE {databaseName} SET Date = '{date}', Quantity = {quantity} WHERE Id = {id}";
 
             tableCommand.ExecuteNonQuery();
 

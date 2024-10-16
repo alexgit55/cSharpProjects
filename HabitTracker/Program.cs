@@ -136,10 +136,12 @@ namespace HabitTracker
             DateTime date = new();
             while (validDate == false)
             {
-                Console.WriteLine("Please enter the date: (Format: yyyy-MM-dd). Type 0 to return to main menu.");
+                Console.WriteLine("Please enter the date: (Format: yyyy-MM-dd). Type 0 to return to main menu, Type 1 for today's date.");
                 var userInput = Console.ReadLine();
                 if (userInput == "0")
                     return "0";
+                if (userInput == "1")
+                    return DateTime.Now.ToString("yyyy-MM-dd");
                 validDate = DateTime.TryParseExact(userInput, "yyyy-MM-dd", new CultureInfo("en-us"), DateTimeStyles.None, out date);
 
                 if (validDate == true)

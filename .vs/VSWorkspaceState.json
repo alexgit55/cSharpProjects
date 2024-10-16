@@ -1,9 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Calculator",
-    "\\MathGame"
+    "\\HabitTracker"
   ],
-  "SelectedNode": "\\Calculator\\Program.cs",
+  "SelectedNode": "\\HabitTracker\\HabitTracker.csproj",
   "PreviewInSolutionExplorer": false
 }

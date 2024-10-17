@@ -19,23 +19,9 @@ namespace HabitTracker
         static void Main(string[] args)
         {
 
-            RunCommandOnDatabase($"CREATE TABLE IF NOT EXISTS {databaseName} (id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Quantity INTEGER)");
+            RunNonQueryCommandOnDatabase($"CREATE TABLE IF NOT EXISTS {databaseName} (id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Quantity INTEGER)");
 
             GetUserInput();
-        }
-
-        public static void RunCommandOnDatabase(string commandText)
-        // Create a connection to the database and execute a command
-        {
-
-            using var connection = new SqliteConnection(connectionString);
-            connection.Open();
-
-            var command = connection.CreateCommand();
-            command.CommandText = commandText;
-            command.ExecuteNonQuery();
-
-            connection.Close();
         }
 
         static void GetUserInput()
@@ -87,8 +73,43 @@ namespace HabitTracker
             }
         }
 
+        private static int CheckDatabaseForRecord(int id)
+        /* Check if a record with the given ID exists in the database
+         * Return 1 if the record exists, 0 if it does not */
+        {
+            using var connection = new SqliteConnection(connectionString);
+            connection.Open();
+
+            var command = connection.CreateCommand();
+            command.CommandText = $"SELECT EXISTS(SELECT 1 FROM {databaseName} WHERE Id = {id})";
+            int query = Convert.ToInt32(command.ExecuteScalar());
+
+            connection.Close();
+
+            return query;
+        }
+
+
+        public static int RunNonQueryCommandOnDatabase(string commandText)
+        // Create a connection to the database and execute a command
+        {
+
+            using var connection = new SqliteConnection(connectionString);
+            connection.Open();
+
+            var command = connection.CreateCommand();
+            command.CommandText = commandText;
+            int result = command.ExecuteNonQuery();
+
+            connection.Close();
+
+            return result;
+        }
+
         private static void ViewAllRecords()
-        // Display all records in the database
+        /* Display all records in the database
+         * Query the database and store the records in a list of Habit objects
+         * If no records are found, display a message */
         {
             Console.Clear();
             Console.WriteLine("Viewing all records\n");
@@ -130,7 +151,9 @@ namespace HabitTracker
         }
 
         private static string GetDateInput()
-        // Get a date input from the user. Return to main menu if 0 is entered, otherwise return the date
+        /* Get a date input from the user. Repeat until a valid date is entered.
+         * Special options: 0 to return to main menu, 1 for today's date */
+
         {
             bool validDate = false;
             DateTime date = new();
@@ -156,7 +179,9 @@ namespace HabitTracker
         }
 
         private static int GetNumberInput(string message)
-        // Get a number input from the user, keep asking until a valid number is entered. Return to main menu if 0 is entered, otherwise return the number
+        /* Get a number input from the user, keep asking until a valid number is entered.
+         * A valid number is a non-negative integer. */
+
         {
             Console.WriteLine(message);
             int quantity = -1;
@@ -165,7 +190,7 @@ namespace HabitTracker
             while (validInput == false)
             {
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out quantity))
+                if (int.TryParse(input, out quantity) && quantity >= 0)
                     validInput = true;
                 else
                     Console.WriteLine("Invalid input. Please try again.");
@@ -175,7 +200,10 @@ namespace HabitTracker
         }
 
         private static void InsertRecord()
-        // Insert a new record into the database
+        /* Insert a new record into the database
+         * Prompt the user for a date and quantity of water drank, then insert the record into the database
+         * If the user enters 0 for the date or quantity, return to the main menu
+         */
         {
             Console.Clear();
             Console.WriteLine("\nAdd New Record to Database\n");
@@ -196,37 +224,51 @@ namespace HabitTracker
             }
 
             string commandText = $"INSERT INTO {databaseName} (Date, Quantity) VALUES ('{date}', {quantity})";
-            RunCommandOnDatabase(commandText);
+            RunNonQueryCommandOnDatabase(commandText);
 
             Console.WriteLine("Record added successfully.\n\n");
         }
         private static void DeleteRecord()
-        // Delete a record from the database
+        /* Delete a record from the database
+         * Prompt the user for the ID of the record to delete, then delete the record from the database
+         * If no record with the given ID is found, display a message and return to the main menu
+         */
         {
             Console.Clear();
             ViewAllRecords();
 
             int id = GetNumberInput("\nPlease enter the ID of the record you want to delete (type 0 to return to main menu): ");
 
-            string commandText = $"DELETE FROM {databaseName} WHERE id = {id}";
+            if (id == 0)
+            {
+                Console.WriteLine("No records will be deleted.\n\n");
+                return;
+            }
 
-            using var connection = new SqliteConnection(connectionString);
-            connection.Open();
+            int recordExists = CheckDatabaseForRecord(id);
 
-            var command = connection.CreateCommand();
-            command.CommandText = commandText;
-            int rowCount = command.ExecuteNonQuery();
-
-            if (rowCount == 0)
+            if (recordExists == 0)
+            {
                 Console.WriteLine($"No record with ID {id} found. No records were deleted.\n\n");
+                return;
+            }
+
+            string commandText = $"DELETE FROM {databaseName} WHERE id = {id}";
+            
+            int success = RunNonQueryCommandOnDatabase(commandText);
+
+            if (success == 0)
+                Console.WriteLine($"Unable to delete record {id}.\n\n");
             else
                 Console.WriteLine($"Record with ID {id} was deleted.\n\n");
 
-            connection.Close();
         }
 
         private static void UpdateRecord()
-        // Update a record in the database
+        /* Update a record in the database
+         * Prompt the user for the ID of the record to update, then prompt for a new date and quantity
+         * If no record with the given ID is found, display a message and return to the main menu
+         */
         {
             Console.Clear();
             ViewAllRecords();

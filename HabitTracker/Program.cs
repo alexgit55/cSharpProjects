@@ -224,9 +224,12 @@ namespace HabitTracker
             }
 
             string commandText = $"INSERT INTO {databaseName} (Date, Quantity) VALUES ('{date}', {quantity})";
-            RunNonQueryCommandOnDatabase(commandText);
+            int success = RunNonQueryCommandOnDatabase(commandText);
 
-            Console.WriteLine("Record added successfully.\n\n");
+            if (success == 0)
+                Console.WriteLine($"Unable add record.\n\n");
+            else
+                Console.WriteLine($"Record has been added successfully.\n\n");
         }
         private static void DeleteRecord()
         /* Delete a record from the database
@@ -273,33 +276,33 @@ namespace HabitTracker
             Console.Clear();
             ViewAllRecords();
 
-            int id = GetNumberInput("\nPlease enter the ID of the record you want to update (type 0 to return to main menu): ");
+            int id = GetNumberInput("\nPlease enter the ID of the record you want to delete (type 0 to return to main menu): ");
 
-            using var connection = new SqliteConnection(connectionString);
-            connection.Open();
-
-            var checkCommand = connection.CreateCommand();
-            checkCommand.CommandText = $"SELECT EXISTS(SELECT 1 FROM {databaseName} WHERE Id = {id})";
-            int checkQuery = Convert.ToInt32(checkCommand.ExecuteScalar());
-
-            if (checkQuery == 0)
+            if (id == 0)
             {
-                Console.WriteLine($"No record with ID {id} found. No records were updated.\n\n");
-                connection.Close();
+                Console.WriteLine("No records will be updated.\n\n");
+                return;
+            }
+
+            int recordExists = CheckDatabaseForRecord(id);
+
+            if (recordExists == 0)
+            {
+                Console.WriteLine($"No record with ID {id} found. No records will be updated.\n\n");
                 return;
             }
 
             string date = GetDateInput();
             int quantity = GetNumberInput("\n\nPlease insert number of glasses of water drank (no decimals allowed, type 0 to return to main menu): ");
 
-            var tableCommand = connection.CreateCommand();
-            tableCommand.CommandText = $"UPDATE {databaseName} SET Date = '{date}', Quantity = {quantity} WHERE Id = {id}";
+            string commandText = $"UPDATE {databaseName} SET Date = '{date}', Quantity = {quantity} WHERE Id = {id}";
 
-            tableCommand.ExecuteNonQuery();
+            int success = RunNonQueryCommandOnDatabase(commandText);
 
-            Console.WriteLine($"Record with id of {id} has been updated.");
-
-            connection.Close();
+            if (success == 0)
+                Console.WriteLine($"Unable to update record {id}.\n\n");
+            else
+                Console.WriteLine($"Record with ID {id} was updated.\n\n");
 
         }
     }

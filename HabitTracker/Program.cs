@@ -19,7 +19,14 @@ namespace HabitTracker
         static void Main(string[] args)
         {
 
-            RunNonQueryCommandOnDatabase($"CREATE TABLE IF NOT EXISTS {databaseName} (id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Quantity INTEGER)");
+            int success = RunNonQueryCommandOnDatabase($"CREATE TABLE IF NOT EXISTS {databaseName} (id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Quantity INTEGER)");
+
+            if (success != 0)
+            {
+                Console.WriteLine($"Unable to create table. Press any key to exit.\n\n");
+                Console.ReadKey();
+                return;
+            }
 
             GetUserInput();
         }
@@ -247,7 +254,7 @@ namespace HabitTracker
                 Console.WriteLine("No records will be deleted.\n\n");
                 return;
             }
-
+            
             int recordExists = CheckDatabaseForRecord(id);
 
             if (recordExists == 0)
@@ -255,13 +262,13 @@ namespace HabitTracker
                 Console.WriteLine($"No record with ID {id} found. No records were deleted.\n\n");
                 return;
             }
-
+            
             string commandText = $"DELETE FROM {databaseName} WHERE id = {id}";
             
             int success = RunNonQueryCommandOnDatabase(commandText);
 
             if (success == 0)
-                Console.WriteLine($"Unable to delete record {id}.\n\n");
+                Console.WriteLine($"Unable to locate record with ID {id}.\n\n");
             else
                 Console.WriteLine($"Record with ID {id} was deleted.\n\n");
 
@@ -294,6 +301,12 @@ namespace HabitTracker
 
             string date = GetDateInput();
             int quantity = GetNumberInput("\n\nPlease insert number of glasses of water drank (no decimals allowed, type 0 to return to main menu): ");
+
+            if (quantity == 0)
+            {
+                Console.WriteLine("No records will be updated.");
+                return;
+            }
 
             string commandText = $"UPDATE {databaseName} SET Date = '{date}', Quantity = {quantity} WHERE Id = {id}";
 
